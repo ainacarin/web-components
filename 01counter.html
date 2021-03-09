@@ -30,14 +30,33 @@
 
             // insert DOM
             connectedCallback() {
+                // DOM value
                 this.innerHTML = `
-                    <button name="minus-button">&minus;</button>
+                    <button id="minus-button">&minus;</button>
                     <span id="value">0</span>
-                    <button name="plus-button">&plus;</button>`;
+                    <button id="plus-button">&plus;</button>`;
+                
+                // reference value DOM
+                this.valueSpan = this.querySelector('#value');
+
+                // buttons listeners
+                const munisButton = this.querySelector('#minus-button');
+                munisButton.addEventListener('click', () => {
+                    this._value--;
+                    this.valueSpan.innerText = this._value;
+                });
+                const plusButton = this.querySelector('#plus-button');
+                plusButton.addEventListener('click', () => {
+                    this._value++;
+                    this.valueSpan.innerText = this._value;
+                })
             }
         }
 
-        customElements.define('counter-element', CounterElement);
+        // unique declaration
+        if(!customElements.get('counter-element')) {
+            customElements.define('counter-element', CounterElement);
+        }
     </script>
 </body>
 </html>
