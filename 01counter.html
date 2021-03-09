@@ -86,6 +86,12 @@
                 } 
             }
 
+            disconnectedCallback() {
+                // disconnect listeners
+                this.munisButton.removeEventListener('click');
+                this.plusButton.removeEventListener('click');
+            }
+
         }
 
         // unique declaration
