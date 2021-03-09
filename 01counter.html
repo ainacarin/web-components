@@ -8,7 +8,9 @@
 </head>
 <body>
 
-    <counter-element value="34"></counter-element>
+    <counter-element id="my-counter" value="34"></counter-element>
+
+    <div>El contador ha cambiado a <span id="new-value"></span></div>
 
     <script>
         class CounterElement extends HTMLElement {
@@ -84,6 +86,11 @@
                 if(this.valueSpan) {
                     this.valueSpan.innerText = this._value;
                 } 
+
+                // custom event attached element
+                this.dispatchEvent(
+                    new CustomEvent('valueChanged', { detail: this._value})
+                );        
             }
 
             disconnectedCallback() {
@@ -92,12 +99,22 @@
                 this.plusButton.removeEventListener('click');
             }
 
-        }
+        } //end class
 
+        /**
+         * SCRIPT  
+        */
         // unique declaration
         if(!customElements.get('counter-element')) {
             customElements.define('counter-element', CounterElement);
         }
+
+        const counter = document.querySelector('#my-counter');
+        counter.addEventListener('valueChanged', (event) => {
+            console.log('On valueChanged event');
+            const newValueSpan = document.querySelector('#new-value');
+            newValueSpan.innerText = event.detail;
+        })
     </script>
 </body>
 </html>
