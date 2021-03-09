@@ -8,6 +8,12 @@
     <script>
 
         class HolaComponent extends HTMLElement{
+
+            // getter estático para el attributeChangedCallback -> array de atributos
+            static get observedAttributes() {
+                return ['style', 'data-atr']
+            }
+
             // el constructor es obligatorio
             constructor (){
                 super();
@@ -21,6 +27,14 @@
                 console.log('On connectedCallback');
             }
 
+            // changing attribute value
+            attributeChangedCallback(name, oldValue, newValue) {
+                // tener getter estático obligatorio
+                console.log(`On attributeChangedCallback: name ${name}, oldValue ${oldValue} newValue ${newValue}`);
+                
+            }
+
+            // out from DOM
             disconnectCallback() {
                 console.log('On disconnectCallback');
             }
@@ -31,9 +45,14 @@
     </script>
     <script>
         setTimeout(() => {
-            const nodeFirst = document.querySelector('#first');
-            document.body.removeChild(nodeFirst);
-        }, 10000);
+            const nodeSecond = document.querySelector('#second');
+            nodeSecond.style.fontSize = '1rem';
+            // nodeSecond.setAttribute('data-atr', 'adios');
+        }, 5000);
+        // setTimeout(() => {
+        //     const nodeFirst = document.querySelector('#first');
+        //     document.body.removeChild(nodeFirst);
+        // }, 10000);
 
     </script>
 </head>
@@ -41,7 +60,7 @@
 
 <body>
     <hola-component id='first'></hola-component>
-    <hola-component></hola-component>
+    <hola-component id='second' style="font-size: 2rem;" data-atr="hola atr"></hola-component>
     <hola-component></hola-component>
 </body>
 
