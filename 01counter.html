@@ -65,7 +65,8 @@
 
             attributeChangedCallback(name, oldValue, newValue) {
                 // parse string to int using setter
-                if(newValue) {
+                // control attribute modified
+                if(name === 'value') {
                     this.value = parseInt(newValue, 10);
                     this._updateViewValue();
                 } else{ // not value attribute declared
