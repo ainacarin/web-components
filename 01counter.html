@@ -15,7 +15,7 @@
             constructor() {
                 super();
                 // initial private value
-                this._value = 0;
+                this._value = 10;
             }
 
             // getter
@@ -40,6 +40,8 @@
                 
                 // reference value DOM
                 this.valueSpan = this.querySelector('#value');
+                // init value DOM
+                this.valueSpan.innerText = this._value;
 
                 // buttons listeners
                 const munisButton = this.querySelector('#minus-button');
