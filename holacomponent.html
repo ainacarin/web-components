@@ -46,8 +46,12 @@
     <script>
         setTimeout(() => {
             const nodeSecond = document.querySelector('#second');
+            // cambios en atributo a los que reacciona
             nodeSecond.style.fontSize = '1rem';
-            // nodeSecond.setAttribute('data-atr', 'adios');
+            nodeSecond.setAttribute('data-atr', 'adios');
+
+            // cambio en atributo al que no reacciona porque no está en la lista del static get
+            nodeSecond.setAttribute('data-new-atr', 'hasta pronto');
         }, 5000);
         // setTimeout(() => {
         //     const nodeFirst = document.querySelector('#first');
@@ -60,7 +64,7 @@
 
 <body>
     <hola-component id='first'></hola-component>
-    <hola-component id='second' style="font-size: 2rem;" data-atr="hola atr"></hola-component>
+    <hola-component id='second' style="font-size: 2rem;" data-atr="hola atr" data-new-atr="hasta luego"></hola-component>
     <hola-component></hola-component>
 </body>
 
