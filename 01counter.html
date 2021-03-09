@@ -65,10 +65,15 @@
 
             attributeChangedCallback(name, oldValue, newValue) {
                 // parse string to int using setter
-                this.value = parseInt(newValue, 10);
-                this._updateViewValue();
+                if(newValue) {
+                    this.value = parseInt(newValue, 10);
+                    this._updateViewValue();
+                } else{ // not value attribute declared
+                    this.value = 0;
+                }
             }
 
+            // display or not if valueSpan exists in dom
             _updateViewValue(){
                 if(this.valueSpan) {
                     this.valueSpan.innerText = this._value;
