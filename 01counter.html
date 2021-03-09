@@ -21,8 +21,8 @@
 
             constructor() {
                 super();
-                // initial private value
-                this._value = 10;
+                // initial private value using setter
+                this.value = 10;
             }
 
             // getter
@@ -34,7 +34,7 @@
             set value(value){
                 this._value = value;
                 // update view DOM element
-                this.valueSpan.innerText = this._value;
+                this._updateViewValue();
             }
 
             // insert DOM
@@ -48,7 +48,7 @@
                 // reference value DOM
                 this.valueSpan = this.querySelector('#value');
                 // init value DOM
-                this.valueSpan.innerText = this._value;
+                this._updateViewValue();
 
                 // buttons listeners
                 const munisButton = this.querySelector('#minus-button');
@@ -64,10 +64,15 @@
             }
 
             attributeChangedCallback(name, oldValue, newValue) {
-                // parse string to int
-                this._value = parseInt(newValue, 10);
-                console.log(`changed value ${name} ${oldValue} ${newValue}`)
-                // this.valueSpan.innerText = this._value;
+                // parse string to int using setter
+                this.value = parseInt(newValue, 10);
+                this._updateViewValue();
+            }
+
+            _updateViewValue(){
+                if(this.valueSpan) {
+                    this.valueSpan.innerText = this._value;
+                } 
             }
 
         }
