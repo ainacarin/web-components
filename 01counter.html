@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+</head>
+<body>
+
+    <counter-element></counter-element>
+
+    <script>
+        class CounterElement extends HTMLElement {
+            constructor() {
+                super();
+                // initial private value
+                this._value = 0;
+            }
+
+            // getter
+            get value(){
+                return this._value;
+            }
+
+            // setter
+            set value(value){
+                this._value = value;
+            }
+
+            // insert DOM
+            connectedCallback() {
+                this.innerHTML = `
+                    <button name="minus-button">&minus;</button>
+                    <span id="value">0</span>
+                    <button name="plus-button">&plus;</button>`;
+            }
+        }
+
+        customElements.define('counter-element', CounterElement);
+    </script>
+</body>
+</html>
