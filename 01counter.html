@@ -32,9 +32,14 @@
             
             // setter
             set value(value){
-                this._value = value;
-                // update view DOM element
-                this._updateViewValue();
+                // control if value changes or not
+                if(this._value === value){
+                    return;
+                } else{
+                    this._value = value;
+                    // update view DOM element
+                    this._updateViewValue();
+                }
             }
 
             // insert DOM
