@@ -11,19 +11,37 @@
             // el constructor es obligatorio
             constructor (){
                 super();
+                console.log('On constructor', this)
             }
 
             // into DOM
+            // se puede ejecutar más de una vez
             connectedCallback() {
                 this.innerHTML = '<h1>Hello World</h1>'
+                console.log('On connectedCallback');
+            }
+
+            disconnectCallback() {
+                console.log('On disconnectCallback');
             }
         }
 
         customElements.define('hola-component', HolaComponent);
 
     </script>
+    <script>
+        setTimeout(() => {
+            const nodeFirst = document.querySelector('#first');
+            document.body.removeChild(nodeFirst);
+        }, 10000);
+
+    </script>
 </head>
+
+
 <body>
+    <hola-component id='first'></hola-component>
+    <hola-component></hola-component>
     <hola-component></hola-component>
 </body>
 
