@@ -8,10 +8,17 @@
 </head>
 <body>
 
-    <counter-element></counter-element>
+    <counter-element value="34"></counter-element>
 
     <script>
         class CounterElement extends HTMLElement {
+
+
+            // getter estático para el attributeChangedCallback -> array de atributos
+            static get observedAttributes() {
+                return ['value'];
+            }
+
             constructor() {
                 super();
                 // initial private value
@@ -35,7 +42,7 @@
                 // DOM value
                 this.innerHTML = `
                     <button id="minus-button">&minus;</button>
-                    <span id="value">0</span>
+                    <span id="value"></span>
                     <button id="plus-button">&plus;</button>`;
                 
                 // reference value DOM
@@ -55,6 +62,14 @@
                     this.value++;
                 })
             }
+
+            attributeChangedCallback(name, oldValue, newValue) {
+                // parse string to int
+                this._value = parseInt(newValue, 10);
+                console.log(`changed value ${name} ${oldValue} ${newValue}`)
+                // this.valueSpan.innerText = this._value;
+            }
+
         }
 
         // unique declaration
