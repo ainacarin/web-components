@@ -8,60 +8,65 @@
     <!-- use slot: entry points for user data-->
 </head>
 <body>
-    
-    <example-element id="example-element">
-     
-        <span slot="name-slot">user name added</span>
-        <span slot="description-slot">user description added</span>
-        <dl slot="attributes-slot">
-            <dt>data user name added</dt>
-            <dd>data user detail 1 added</dd>
-            
-            <dt>data user description added</dt>
-            <dd>data user description detail 2 added <i>name</i>.</dd>
 
-            <dt>data user attributes added</dt>
-            <dd>data user attributes detail 3 added</dd>
-        </dl>
-    
-    </example-element>
-
+    <!-- Define template -->
     <template id="example-template">
-        <!-- <style></style> -->
+        <style></style>
         <details>
             <summary>
-                <span>
-                    <code class="name">
-                        <slot name="name-slot"></slot>
+                <span class="name-span">
+                     <code class="name"></code> 
+                        <slot class="name-slot"></slot>
                     </code>
-                    <i class="descripction">
-                        <slot name="description-slot"></slot>
-                    </i>
                 </span>
+                <i clas="description-i">
+                    <slot class="description-slot"></slot>
+                </i>
             </summary>
-            <div class="attributes">
+            <!-- <div class="attributes"> 
                 <h4><span></span></h4>
-                <slot name="attributes-slot"><p></p></slot>
-            </div>
+                <slot class="attributes-slot"><p></p></slot>
+            </div> -->
         </details>
         <hr />
     </template>
 
+    <!-- Define template to display element -->
+    <example-element id="example-element">
+        <!-- example manual data  -->
+
+    
+    </example-element>
+
+    <!-- Script using web component -->
     <script>
 
         // custom HTML element
         class ExampleElement extends HTMLElement{
             constructor() {
                 super();
+                this.userNameData = ['apple', 'banana', 'orange'];
+                this.userDescriptionData = ['descr 1', 'descr 2', 'descr 3'];
+                
             }
 
             connectedCallback() {
                 // get template
                 const template = document.getElementById('example-template');
-                // clone template
-                const node = document.importNode(template, true);
-                // add template into my element
-                this.appendChild(node);
+
+                for (let index = 0; index < this.userNameData.length; index++) {
+                    // poblate slots with user data
+                    const nameSlot = template.content.querySelector('.name-slot');
+                    nameSlot.innerText = this.userNameData[index];
+                    const descriptionSlot = template.content.querySelector('.description-slot');
+                    descriptionSlot.innerText = this.userDescriptionData[index];
+
+                    // // clone node
+                    const node = document.importNode(template.content, true);
+
+                    // // add template into my element
+                    this.appendChild(node);
+                }           
             }
         }
 
