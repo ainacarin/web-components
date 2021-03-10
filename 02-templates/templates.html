@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Templates</title>
+</head>
+<body>
+    <!-- no se muestra en pantalla -->
+    <template id="my-template">
+        <h1>Mi template base</h1>
+    </template>
+
+    <script>
+        // get template
+        const template = document.getElementById('my-template');
+        // clone template content
+        const nodeTemplate = document.importNode(template.content, true);
+        // render template into body
+        document.body.appendChild(nodeTemplate);
+    </script>
+</body>
+</html>
