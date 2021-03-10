@@ -9,34 +9,59 @@
 </head>
 <body>
 
-    <!-- Define template -->
+    <!-- Define template to display definitions-->
     <template id="example-template">
         <style></style>
         <details>
             <summary>
-                <span class="name-span">
-                     <code class="name"></code> 
-                        <slot class="name-slot"></slot>
+                <span>
+                     <code class="name">
+                        <slot name="name-slot">Name is required</slot>
                     </code>
                 </span>
-                <i clas="description-i">
-                    <slot class="description-slot"></slot>
+                <i class="description">
+                    <slot name="description-slot">Description is required</slot>
                 </i>
             </summary>
-            <!-- <div class="attributes"> 
-                <h4><span></span></h4>
-                <slot class="attributes-slot"><p></p></slot>
-            </div> -->
+            <div class="attributes"> 
+                <h4><span>Attributes</span></h4>
+                <slot name="attributes-slot"><p>Empty</p></slot>
+            </div>
         </details>
         <hr />
     </template>
 
-    <!-- Define template to display element -->
-    <example-element id="example-element">
+    <!-- Consumes the template using custom element-->
+    <example-element>
         <!-- example manual data  -->
+        <span slot="name-slot">slot</span>
 
+      <span slot="description-slot">
+        Un marcador de posición dentro de un componente web que los usuarios
+        pueden rellenar con su propio marcado, con el efecto de componer
+        diferentes árboles DOM juntos.
+      </span>
+
+      <dl slot="attributes-slot">
+        <dt>name</dt>
+        <dd>El atributo name del slot.</dd>
+
+        <dt>description</dt>
+        <dd>La descripción del término incluido en <i>name</i>.</dd>
+
+        <dt>attributes</dt>
+        <dd>Para explicar las tres posiciones de slot.</dd>
+      </dl>
     
     </example-element>
+
+    <example-element>
+        <span slot="name-slot">template</span>
+
+      <span slot="description-slot">
+        Permite usar un árbol DOM a través de Javascript
+      </span>
+    </example-element> 
 
     <!-- Script using web component -->
     <script>
@@ -45,28 +70,15 @@
         class ExampleElement extends HTMLElement{
             constructor() {
                 super();
-                this.userNameData = ['apple', 'banana', 'orange'];
-                this.userDescriptionData = ['descr 1', 'descr 2', 'descr 3'];
-                
             }
 
             connectedCallback() {
                 // get template
                 const template = document.getElementById('example-template');
-
-                for (let index = 0; index < this.userNameData.length; index++) {
-                    // poblate slots with user data
-                    const nameSlot = template.content.querySelector('.name-slot');
-                    nameSlot.innerText = this.userNameData[index];
-                    const descriptionSlot = template.content.querySelector('.description-slot');
-                    descriptionSlot.innerText = this.userDescriptionData[index];
-
-                    // // clone node
-                    const node = document.importNode(template.content, true);
-
-                    // // add template into my element
-                    this.appendChild(node);
-                }           
+                // clone node
+                const node = document.importNode(template, true);
+                // add template into my element
+                this.appendChild(node);
             }
         }
 
