@@ -4,12 +4,8 @@ class Swapi extends HTMLElement {
 
     // get template
     this._template = document.getElementById("starwars-films");
-    // duplicate node
-    // const node = document.importNode(this._template.content, true);
-    // shadow dom
+    // asoociate shadow dom 
     this.shadowDom = this.attachShadow({ mode: "open" });
-    // add template to shadow dom
-    // shadowRoot.appendChild(node);
   }
 
   get films() {
@@ -33,7 +29,7 @@ class Swapi extends HTMLElement {
           };
         })
         .sort((a, b) => a.episode - b.episode);
-      console.log(this._films);
+        // render films
       this._displayFilms();
     });
     request.send();
