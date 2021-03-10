@@ -15,10 +15,13 @@
     <script>
         // get template
         const template = document.getElementById('my-template');
-        // clone template content
-        const nodeTemplate = document.importNode(template.content, true);
-        // render template into body
-        document.body.appendChild(nodeTemplate);
+        // reusing template
+        for (let i = 0; i < 10; i++) {
+            // clone template content
+            const nodeTemplate = document.importNode(template.content, true);
+            // render template into body
+            document.body.appendChild(nodeTemplate);
+        }
     </script>
 </body>
 </html>
