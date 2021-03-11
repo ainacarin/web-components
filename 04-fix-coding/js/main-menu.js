@@ -3,6 +3,30 @@ class MainMenu extends HTMLElement {
     constructor(){
         super();
 
+        // menu item content
+        this._menuItems = [
+
+            {
+                link: '#trending',
+                name: 'Popular'
+            },
+            {
+                link: '#shows',
+                name: 'Series'
+            },
+            {
+                link: '#movies',
+                name: 'Películas'
+            },
+            {
+                link: '#',
+                name: 'Mi perfil'
+            },
+            {
+                link: 'index.html',
+                name: 'Cerrar sesión'
+            }
+        ]
     }
 
     connectedCallback(){
@@ -11,7 +35,10 @@ class MainMenu extends HTMLElement {
     }
 
     _render() {
-        this._addMenuItem('#trending', 'Popular');
+
+        this._menuItems.forEach(element => {
+            this._addMenuItem(element.link, element.name);
+        });
     }
 
     _addMenuItem(textHref, textMenu) {
