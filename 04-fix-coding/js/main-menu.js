@@ -30,6 +30,15 @@ class MainMenu extends HTMLElement {
     }
 
     connectedCallback(){
+        // add template into custom element
+        this.innerHTML = ` <template id="menu-item-tpl">
+        <li class="navbar-item" >
+        <a href="" class="item-link"></a
+        ></li></template>`;
+        
+        // get itemn list template
+        this.itemTemplate = this.querySelector('#menu-item-tpl');
+        
         // render component
         this._render();
     }
@@ -43,16 +52,13 @@ class MainMenu extends HTMLElement {
 
     _addMenuItem(textHref, textMenu) {
         // display elements
-        // link
-        const linkElement = document.createElement('a');
+        const node = document.importNode(this.itemTemplate.content, true);
+        // config link data
+        const linkElement = node.querySelector('.item-link');
         linkElement.setAttribute('href', textHref);
         linkElement.innerText = textMenu;
-        // item list
-        const listElem = document.createElement('li');
-        listElem.classList.add('navbar-item');
-        listElem.appendChild(linkElement);
         // append into custom element
-        this.appendChild(listElem);
+        this.appendChild(node);
     }
 }
 
