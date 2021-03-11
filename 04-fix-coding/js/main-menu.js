@@ -7,15 +7,15 @@ class MainMenu extends HTMLElement {
         this._menuItems = [
 
             {
-                link: '#trending',
+                link: '/home.html#trending',
                 name: 'Popular'
             },
             {
-                link: '#shows',
+                link: '/home.html#shows',
                 name: 'Series'
             },
             {
-                link: '#movies',
+                link: '/home.html#movies',
                 name: 'Películas'
             },
             {
